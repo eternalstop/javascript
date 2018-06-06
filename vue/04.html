@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<title>常用指令： v-on</title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+<div id="itany">
+	<button v-on:click="show()">点我</button>
+	<hr>
+	<button v-on:click="add()">向数组中增加一个元素</button>
+	<hr>
+	{{arr}}
+	<hr>
+	<button v-on:mouseover="show">鼠标经过</button>
+	<hr>
+	<button v-on:dblclick="show">鼠标双击</button>
+	<br>
+</div>
+
+<script>
+	new Vue({
+		el: '#itany',
+		data: {//save data
+		    name: 'liang',
+			arr: [1,2,3,456,7],
+		},
+		methods:{//save method
+			show: function () {
+				console.log("show 方法")
+            },
+			add: function () {
+				this.arr.push(777)//使用this调用当前实例中的成员
+				this.show()
+            }
+		}
+	})
+</script>
+</body>
+</html>

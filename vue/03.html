@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>常用指令： v-for</title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<ul>
+			<li v-for="v in arr">{{v}} //普通循环</li>
+			<li v-for="v in dict">{{v}} //普通循环</li>
+			<li v-for="(v,k) in arr">{{k}}: {{v}} //带key的循环</li>
+			<li v-for="(v,k) in dict">{{k}}: {{v}} //带key的循环</li>
+			<li v-for="(v,k) in dict" :key="k">{{k}}: {{v}} //可以通过：key绑定唯一的key，当更新元素的适合可重用元素，提高效率</li>
+			<li v-for="(user,index) in users">{{index+1}} {{user.id}}-{{user.name}}-{{user.age}}</li>
+		</ul>
+	</div>
+	<script>
+		new Vue({
+			el: '#itany',
+			data: {
+			    arr: [123,54,7546,212,4321,123],
+				dict: {id:9527,name:'liang',age:27},
+				users: [
+				    {id:9527,name:'liang',age:27},
+					{id:9528,name:'hua',age:27},
+					{id:9529,name:'leaf',age:27},
+					{id:9522,name:'fish',age:27},
+				],
+			},
+		})
+	</script>
+</body>
+</html>

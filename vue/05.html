@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>常用指令： v-show/v-if</title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<button v-on:click="flag=!flag">v-show隐藏</button>
+		<hr>
+		<button v-on:click="change">method隐藏</button>
+		<hr>
+		<button v-on:click="flag=!flag">v-if隐藏</button>
+		<hr>
+		<div style="width: 100px; height: 100px; background-color: blue" v-show="flag">v-show隐藏测试</div>
+		<div style="width: 100px; height: 100px; background-color: blue" v-if="flag">v-if隐藏测试</div>
+	</div>
+	<script>
+		new Vue({
+			el: "#itany",
+			data: {
+			    flag: true,
+			    name: 'liang',
+				age: 222,
+				list: [1,23,4,5,5]
+			},
+			methods: {
+				change:function () {
+					this.flag=!this.flag
+                },
+			}
+		})
+	</script>
+</body>
+</html>

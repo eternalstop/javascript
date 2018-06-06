@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>hello world</title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		{{msg}} //称为模板，用来数据的
+		{{name}}
+	</div>
+	<div id="test">
+		{{name}}
+	</div>
+	<script>
+		    //配置是否允许vue-devtools调试代码，生产环境需要设置为false
+		    Vue.config.devtools=false;
+		    Vue.config.productionTip=false;
+
+		new Vue({
+			el: '#itany',//指定关联得元素
+			data: { //存储数据
+			    msg: 'hello world',
+				name: 'test',
+			},
+			});
+	</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>normal command</title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<!--<div id="itany">-->
+	<!--<div class="itany">-->
+	<div>
+		username <input
+			type="text" v-model="name">
+		<br>
+		{{name}}<br>
+		{{age}}<br>
+		{{flag}}<br>
+		{{contry}}<br>
+		{{list}}<br>
+		{{dict}}
+	</div>
+
+	<script>
+	new Vue({
+		el: 'div',//el不允许挂载到body和html元素
+		data: {
+		    name: 'liang',//vue数据的值需要先声明
+			age: '27',
+			flag: true,
+			contry: 'China',
+			list: [12,24,343],
+			dict: {id:123},
+		},
+	})
+	</script>
+</body>
+</html>
