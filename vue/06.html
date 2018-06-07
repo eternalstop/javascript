@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用户管理</title>
+	<script src="js/vue.js"></script>
+	<script src="bootstrap/jquery.min.js"></script>
+	<link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+	<script src="bootstrap/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<h2 class="text-center">添加用户</h2>
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label for="name" class="control-label col-sm-4 col-sm-offset-4">姓 名：</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control" id="name" v-model="user.name" placeholder="请输入姓名">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="age" class="control-label col-sm-2 col-sm-offset-2">年 龄：</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control" id="age" v-model="user.age" placeholder="请输入年龄">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="QQ" class="control-label col-sm-2 col-sm-offset-2">Q Q：</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control" id="QQ" v-model="user.QQ" placeholder="请输入QQ">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="Email" class="control-label col-sm-2 col-sm-offset-2">Email：</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control" id="Email" v-model="user.Email" placeholder="请输入邮箱">
+			</div>
+		</div>
+		<div class="form-group text-center">
+			<input type="button" value="添 加" class="btn btn-primary">
+			<input type="button" value="重 置" class="btn btn-primary">
+		</div>
+	</form>
+
+	<hr>
+
+	<table class="table table-bordered table-hover">
+		<caption class="h3 text-center text-info">用户列表</caption>
+		<thead>
+			<tr>
+				<th class="text-center">序号</th>
+				<th class="text-center">姓名</th>
+				<th class="text-center">QQ</th>
+				<th class="text-center">邮箱</th>
+				<th class="text-center">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="(user,index) in users" class="text-center">
+				<td>{{index + 1}}</td>
+				<td>{{user.name}}</td>
+				<td>{{user.QQ}}</td>
+				<td>{{user.email}}</td>
+				<td>
+					<button class="btn btn-danger">删除</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<script>
+	Vue.config.devtools=false;
+	Vue.config.productionTip=false;
+
+	new Vue({
+		el: '.container',
+		data: {
+			users: [
+				{name: 'liang', age: 27, email: 'liang@eternalstop', QQ: '1170411507'},
+				{name: 'meng', age: 27, email: '957577050@qq.com', QQ: '957577050'},
+				{name: 'leaf', age: 22, email: 'leaf@eternalstop.com', QQ: '7777777'},
+			],
+			user: "",
+		},
+		methods: {
+
+		},
+	})
+</script>
+</body>
+</html>

@@ -14,9 +14,13 @@
 		<button v-on:click="flag=!flag">v-if隐藏</button>
 		<hr>
 		<div style="width: 100px; height: 100px; background-color: blue" v-show="flag">v-show隐藏测试</div>
+		<hr>
 		<div style="width: 100px; height: 100px; background-color: blue" v-if="flag">v-if隐藏测试</div>
 	</div>
 	<script>
+		Vue.config.devtools=false;
+		Vue.config.productionTip=false;
+
 		new Vue({
 			el: "#itany",
 			data: {
