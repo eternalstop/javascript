@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>发送AJAX请求</title>
+	<script src="../js/vue.js"></script>
+	<script src="../js/axios.min.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<button @click="send">发送AJAX请求</button>
+	</div>
+</body>
+<script>
+	new Vue({
+		el:'#itany',
+		methods:{
+		    send(){
+		        axios({
+			        method:'get',
+			        url:'user.json',
+		        }).then(resp => {
+			        console.log(resp.data);
+                }).catch(resp => {
+                    console.log('请求失败: '+resp.status+','+resp.statusText)
+		        });
+		    }
+		}
+	})
+</script>
+</html>

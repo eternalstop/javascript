@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>属性的绑定和属性的简写</title>
+	<script src="../js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<!--用于属性的绑定，v-bind:属性=""-->
+		<!--属性的简写 v-bind:src=""简写为 :src=""-->
+		<!--<img v-bind:src="url">-->
+		<img :src="url" :width="w" :hight="h">
+	</div>
+</body>
+<script>
+
+	let vm=new Vue({
+		el:'#itany',
+		data:{
+		    url: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529567625661&di=522b7145ac09a273ecdd61008459b093&imgtype=0&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F17%2F86%2F88%2F55a09df24b97e_1024.jpg",
+			w:'500',
+			h:'500',
+		}
+		})
+</script>
+</html>

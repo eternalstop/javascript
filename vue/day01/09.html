@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>键盘事件</title>
+	<script src="../js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<!--简化按键判断-->
+		<!--默认没有a\b\c\这些键盘事件，可以自定义键盘事件，也称为自定义键位别名-->
+		用户名：<input type="text" @keydown.enter="show">
+		用户名：<input type="text" @keydown="oldmethod($event)">
+		<button @click.once="print">只执行一次</button>
+	</div>
+</body>
+<script>
+	Vue.config.keyCodes={
+	    a:65,
+		f1:112,
+	}
+
+	let vm=new Vue({
+		el:'#itany',
+		methods:{
+		    oldmethod(e){
+		        if(e.keyCode==13){
+		            console.log("您按了回车old")
+		        }
+		    },
+			show(e) {
+                console.log("您按了回车vue")
+            },
+			print(){
+		        console.log('777')
+			},
+		},
+		})
+</script>
+</html>
