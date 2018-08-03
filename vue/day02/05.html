@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue实例的属性和方法</title>
+	<script src="../js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		{{msg}}
+		<!--<h2 ref="hello">{{msg}}</h2>-->
+		<!--<h2 ref="world">{{msg}}</h2>-->
+	</div>
+</body>
+<script>
+	var vm=new Vue({
+		el: '',
+		data: {
+		    msg:'welcome to itany'
+		},
+		name: 'liang',
+		age: '27',
+	});
+    /**
+     * 属性
+     */
+	// //vm.属性名，获取data中的属性
+	// console.log(vm.msg)
+
+	//vm.$el,获取实例关联的元素
+	// vm.$el.style.color='red';
+
+	//vm.$data //获取数据对象data
+	// console.log(vm.$data.msg);
+
+	//vm.$options //获取自定义属性
+	// console.log(vm.$options.name);
+	// console.log(vm.$options.age);
+	// vm.$options.show;
+
+	//vm.$refs //获取所有添加ref属性的元素
+	// console.log(vm.$refs)
+	// vm.$refs.hello.style.color='red';
+	// vm.$refs.world.style.color='blue';
+
+    /**
+     * 方法
+     */
+    //vm.$mount()手动挂载vue实例
+	vm.$mount('#itany')
+
+</script>
+</html>

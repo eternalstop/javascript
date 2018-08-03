@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>监控数据的变化：$watch</title>
+	<script src="../js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<input type="text" v-model="name">
+		<br>
+		<hr>
+		<h2>{{name}}</h2>
+		<hr>
+		<input type="text" v-model="age">
+		<h2>{{age}}</h2>
+		<hr>
+		<input type="text" v-model="user.name">
+		<h2>{{user.name}}</h2>
+	</div>
+</body>
+<script>
+	var vm=new Vue({
+		el: '#itany',
+		data: {
+		    name:'liang',
+			age:27,
+			user:{
+		        id:1007,
+				name:'liang'
+			}
+		},
+		watch:{//方式2：使用vue实例提供的watch选项
+		    age:(newValue,oldValue) => {
+			    console.log("name属性被修改了, 原来的值为：" + oldValue + ", 新的值为： " + newValue)
+            },
+			user:{
+		        handler:(newValue,oldValue) => {
+			    console.log("name属性被修改了, 原来的值为：" + oldValue.name + ", 新的值为： " + newValue.name)
+            },
+				deep:true
+			}
+		}
+	});
+
+	vm.$watch('name',function (newValue, oldValue) {
+		console.log("name属性被修改了, 原来的值为：" + oldValue + ", 新的值为： " + newValue)
+    })
+</script>
+</html>
