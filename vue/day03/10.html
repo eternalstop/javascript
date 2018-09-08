@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>路由基本用法</title>
+	<style>
+		.active{
+			font-size: 20px;
+			color: blue;
+			text-decoration: none;
+		}
+	</style>
+	<script src="../js/vue.js"></script>
+	<script src="../js/vue-router.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<div>
+			<router-link to="/home">home</router-link>
+			<router-link to="/news">news</router-link>
+		</div>
+		<div>
+			<router-view></router-view>
+		</div>
+	</div>
+
+	<script>
+		//1.定义组件
+		var Home={
+		    template:'<h3>I am home</h3>'
+		}
+		var News={
+		    template:'<h3>I am news</h3>'
+		}
+
+		//2.配置路由
+		const routes=[
+			{path:'/home',component:Home},
+			{path:'/news',component:News},
+			{path:'*',redirect:'/home'}
+		]
+
+		//3.创建路由实例
+		const router=new VueRouter({
+			routes, //简写，相当于routes:routes
+			mode:'history', //更改模式，默认为hash
+			linkActiveClass:'active'
+		});
+
+		//4.创建根实例，并将路由挂载到vue实例上
+		var vm=new Vue({
+			el:'#itany',
+			router //注入路由
+		})
+	</script>
+</body>
+</html>

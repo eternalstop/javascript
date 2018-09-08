@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>引用模板</title>
+	<script src="../js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<my-hello></my-hello>
+	</div>
+
+	<template id="wbs">
+		<div>
+			<h3>{{msg}}</h3>
+			<ul>
+				<li v-for="value in arr">{{value}}</li>
+			</ul>
+		</div>
+	</template>
+
+	<script>
+		var vm=new Vue({
+			el:'#itany',
+			components:{
+			    'my-hello':{
+			        name:'ali2018',//指定组件的名称，默认时标签名
+			        template:'#wbs',
+				    data(){
+			        return {
+			            msg: '欢迎来到永远站',
+				        arr:['shishi','hehe','pipi','huanghuang','chuichui','tongtong','longlong','liangliang']
+			        }
+				}
+			    },
+			}
+		})
+	</script>
+</body>
+</html>

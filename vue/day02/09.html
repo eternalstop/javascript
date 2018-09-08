@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义指令</title>
+	<script src="../js/vue.js"></script>
+</head>
+<body>
+	<div id="itany">
+		<!--<h2 v-hello>{{msg}}</h2>-->
+		<!--<button @click="changeData">更新数据</button>-->
+		<h2 v-liang="username">{{msg}}</h2>
+	</div>
+</body>
+<script>
+    /**
+     * 自定义属性
+     * 注意：使用指令时必须在名称前加v-，即v-指令名称
+     */
+    Vue.directive('hello',{
+        bind(){//常用！！
+			alert('指令第一次绑定到元素上时调用，只调用一次，可执行初始化操作');
+        },
+	    inserted(){
+			alert('被绑定元素插入到DOM中时调用');
+	    },
+	    update(){
+			alert('当被绑定元素所在模板时调用');
+	    },
+	    componentUpdated(){
+			alert('被绑定元素所在模板完成一次更新周期时调用')
+	    },
+	    unbind(){
+			alert('指令解绑时被调用，只调用一次')
+	    },
+    });
+
+    Vue.directive('liang',{
+       bind(el,binding){
+           console.log(binding)
+	       el.style.color='blue'
+       }
+    });
+
+	var vm=new Vue({
+		el: '#itany',
+		data: {
+		    msg:'welcome to itany',
+			username:'test'
+		},
+		methods:{
+		    changeData(){
+		        this.msg='itany to welcome!!!'
+		    }
+		}
+    })
+</script>
+</html>
