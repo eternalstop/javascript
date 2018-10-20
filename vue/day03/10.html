@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>路由基本用法</title>
+	<title>路由嵌套和参数的传递</title>
 	<style>
 		.active{
 			font-size: 20px;
@@ -10,34 +10,75 @@
 			text-decoration: none;
 		}
 	</style>
+	<link rel="stylesheet" href="../css/animate.css">
 	<script src="../js/vue.js"></script>
 	<script src="../js/vue-router.js"></script>
 </head>
 <body>
 	<div id="itany">
 		<div>
-			<router-link to="/home">home</router-link>
-			<router-link to="/news">news</router-link>
+			<router-link to="/home">主页</router-link>
+			<router-link to="/user">用户</router-link>
 		</div>
 		<div>
-			<router-view></router-view>
+			<transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+				<router-view></router-view>
+			</transition>
 		</div>
+		<hr>
+		<button @click="push">添加路由</button>
+		<button @click="replace">切换路由</button>
 	</div>
 
+	<template id="user">
+		<div>
+			<h3>用户信息</h3>
+			<ul>
+				<router-link to="/user/login?name=liang&age=27" tag="li">用户登录</router-link>
+				<router-link to="/user/regist/hua/23" tag="li">用户注册</router-link>
+			</ul>
+				<router-view></router-view>
+		</div>
+	</template>
+
 	<script>
-		//1.定义组件
 		var Home={
 		    template:'<h3>I am home</h3>'
-		}
-		var News={
-		    template:'<h3>I am news</h3>'
-		}
+		};
+		var User={
+		    template:'#user'
+		};
+		var Login={
+		    template:'<h4>登录成功...查询字符串获取参数:{{$route.query}}</h4>'
+		};
+		var Regist={
+		    template:'<h4>注册成功...rest风格获取参数：{{$route.params}}</h4>'
+		};
 
 		//2.配置路由
 		const routes=[
-			{path:'/home',component:Home},
-			{path:'/news',component:News},
-			{path:'*',redirect:'/home'}
+			{
+			    path:'/home',
+				component:Home
+			},
+			{
+			    path:'/user',
+				component:User,
+				children:[
+					{
+					    path:'login',
+						component:Login
+					},
+					{
+					    path:'regist/:name/:age',
+						component:Regist
+					}
+				]
+			},
+			{
+			    path:'*',
+				redirect:'/home'
+			}
 		]
 
 		//3.创建路由实例
@@ -50,7 +91,15 @@
 		//4.创建根实例，并将路由挂载到vue实例上
 		var vm=new Vue({
 			el:'#itany',
-			router //注入路由
+			router, //注入路由
+			methods:{
+			    push(){
+			        router.push({path:'home'}); //添加路由
+			    },
+				replace(){
+			        router.replace({path:'user'}) //替换路由
+				}
+			}
 		})
 	</script>
 </body>

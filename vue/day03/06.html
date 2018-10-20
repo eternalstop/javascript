@@ -2,37 +2,57 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>定义组件的两种方式</title>
+	<title>单向数据流</title>
 	<script src="../js/vue.js"></script>
 </head>
 <body>
 	<div id="itany">
-		<one-hello></one-hello>
-		<my-hello></my-hello>
+		<h2>父组件: {{name}}</h2>
+		<input type="text" v-model="name">
+		<h2>父组件：{{user.age}}</h2>
+
+		<hr>
+
+		<my-hello :name.sync="name" :user="user"></my-hello>
 	</div>
 
+	<template id="hello">
+		<div>
+			<h3>子组件: {{name}}</h3>
+			<h3>子组件：{{user.age}}</h3>
+			<button @click="change">修改数据</button>
+		</div>
+	</template>
+
 	<script>
-        /**
-         * 方式一：先创建组件构造器，然后由组件构造器创建组件
-         */
-        //1.创建一个组件构造器
-        var MyComponent=Vue.extend({
-	        template:'<h3>hello world</h3>'
-	        });
-        //2.使用Vue.component(标签名，组件构造器)，根据组件构造器来创建组件
-        Vue.component('one-hello',MyComponent);
-
-        /**
-         * 方式2：直接创建组件
-         */
-        Vue.component('my-hello',{
-            template: '<h1>你好</h1>'
-        });
-
-		new Vue({
+		var vm=new Vue({//父组件
 			el:'#itany',
 			data:{
+			    name:'liang',
+				user:{
+			        name:'lisi',
+					age:27,
+				}
+			},
+			components:{
+			    'my-hello':{//子组件
+				    template: '#hello',
+				    props:['name','user'],
+				    data(){
+				        return {
+				            username:this.name//方式1：将父组件的数据存到另一个变量中
+				        }
+				    },
+				    methods:{
+				        change(){
+				            // this.username='hua'
+					        // this.name='hua'
+					        // this.$emit('update:name','hua');//方式2：使用sync,需要显示地触发一个事件
+					        this.user.age=18;
+				        }
 
+				    }
+			    }
 			}
 		})
 	</script>

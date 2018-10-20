@@ -2,37 +2,45 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>引用模板</title>
+	<title>动态组件</title>
 	<script src="../js/vue.js"></script>
 </head>
 <body>
 	<div id="itany">
-		<my-hello></my-hello>
-	</div>
+		<button @click="flag='my-hello'">显示hello组件</button>
+		<button @click="flag='my-world'">显示world组件</button>
 
-	<template id="wbs">
 		<div>
-			<h3>{{msg}}</h3>
-			<ul>
-				<li v-for="value in arr">{{value}}</li>
-			</ul>
+			<!--使用keep-alive组件缓存非活动组件，可以保留状态，避免重新渲染，默认每次都会重新渲染-->
+			<keep-alive>
+				<component :is="flag"></component>
+			</keep-alive>
 		</div>
-	</template>
+	</div>
 
 	<script>
 		var vm=new Vue({
 			el:'#itany',
+			data:{
+			    flag:'my-hello'
+			},
 			components:{
 			    'my-hello':{
-			        name:'ali2018',//指定组件的名称，默认时标签名
-			        template:'#wbs',
+			        template:'<h3>我是hello组件:{{x}}</h3>',
 				    data(){
 			        return {
-			            msg: '欢迎来到永远站',
-				        arr:['shishi','hehe','pipi','huanghuang','chuichui','tongtong','longlong','liangliang']
+			            x:Math.random()
 			        }
 				}
 			    },
+				'my-world':{
+			        template: '<h3>我是world组件:{{y}}</h3>',
+					data(){
+			            return {
+			                y:Math.random()
+			            }
+					}
+				}
 			}
 		})
 	</script>

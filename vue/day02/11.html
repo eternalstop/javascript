@@ -2,32 +2,15 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>过渡：动画</title>
+	<title>动画</title>
+	<link rel="stylesheet" href="../css/animate.css">
 	<script src="../js/vue.js"></script>
 	<style>
 		p{
 			width: 300px;
 			height: 300px;
 			background-color: #5bc0de;
-		}
-		.fade-enter-active,.fade-leave-active{
-			transition: all 3s ease;
-		}
-		.fade-enter-active{
-			opacity: 1;
-			width: 300px;
-			height: 300px;
-		}
-		.fade-leave-active{
-			opacity: 0;
-			width: 100px;
-			height: 100px;
-		}
-		/* .fade-enter需要放在.fade-enter-active后面 */
-		.fade-enter{
-			opacity: 0;
-			width: 100px;
-			height: 100px;
+			margin: 0 auto;
 		}
 	</style>
 </head>
@@ -35,14 +18,7 @@
 	<div id="itany">
 		<button @click="flag=!flag">点我</button>
 
-	<transition name="fade"
-	            @before-enter="beforeEnter"
-	            @enter="enter"
-	            @after-enter="afterEnter"
-	            @before-leave="beforeLeave"
-	            @leave="leave"
-	            @after-leave="afterLeave"
-	>
+	<transition enter-active-class="animated fadeInLeft" leave-active-class="animated fadeOutRight">
 		<p v-show="flag">亮亮</p>
 	</transition>
 	</div>
@@ -52,26 +28,6 @@
 			data: {
 			    flag:false
 			},
-			methods:{
-			    beforeEnter(el){
-			        alert('动画进入之前');
-			    },
-				enter(){
-			        alert('动画进入');
-				},
-				afterEnter(){
-			        alert('动画进入之后');
-				},
-				beforeLeave(){
-			        alert('动画离开之前');
-				},
-				leave(){
-			        alert('动画离开');
-				},
-				afterLeave(){
-			        alert('动画离开之后')
-				}
-			}
 	    })
 	</script>
 

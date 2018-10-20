@@ -2,64 +2,76 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>练习：自定义指令</title>
+	<title>过渡：动画</title>
 	<script src="../js/vue.js"></script>
 	<style>
-		#itany div{
-			width:100px;
-			height:100px;
-			position:absolute;
+		p{
+			width: 300px;
+			height: 300px;
+			background-color: #5bc0de;
 		}
-		#itany .hello{
-			background-color:red;
-			top:0;
-			left:0;
+		.fade-enter-active,.fade-leave-active{
+			transition: all 3s ease;
 		}
-		#itany .world{
-			background-color:blue;
-			top:0;
-			right:0;
+		.fade-enter-active{
+			opacity: 1;
+			width: 300px;
+			height: 300px;
+		}
+		.fade-leave-active{
+			opacity: 0;
+			width: 100px;
+			height: 100px;
+		}
+		/* .fade-enter需要放在.fade-enter-active后面 */
+		.fade-enter{
+			opacity: 0;
+			width: 100px;
+			height: 100px;
 		}
 	</style>
 </head>
 <body>
 	<div id="itany">
-		<div class="hello" v-drag>itany</div>
-		<div class="world" v-drag>eternalstop</div>
+		<button @click="flag=!flag">点我</button>
+
+	<transition name="fade"
+	            @before-enter="beforeEnter"
+	            @enter="enter"
+	            @after-enter="afterEnter"
+	            @before-leave="beforeLeave"
+	            @leave="leave"
+	            @after-leave="afterLeave"
+	>
+		<p v-show="flag">亮亮</p>
+	</transition>
 	</div>
-
 	<script>
-		Vue.directive('drag',function(el){
-			el.onmousedown=function (e) {
-				var disX=e.clientX-el.offsetLeft;
-				var disY=e.clientY-el.offsetTop;
-
-				//包含在onmousedown里面，表示点击后才移动，为防止鼠标移出div，使用document
-				document.onmousemove=function (e) {
-					//获取移动后div的位置:鼠标位置-disX/disY
-					var l=e.clientX-disX;
-					var t=e.clientY-disY;
-					el.style.left=l+'px';
-					el.style.top=t+'px';
-	            };
-				document.onmouseup=function (e) {
-					document.onmousemove=null;
-					document.onmouseup=null;
-	            }
-	        }
-	    });
-
 		var vm=new Vue({
 			el: '#itany',
 			data: {
-			    msg:'welcome to itany',
-				username:'liang'
+			    flag:false
 			},
 			methods:{
-				change(){
-				    this.msg='welcome to eternalstop'
+			    beforeEnter(el){
+			        alert('动画进入之前');
+			    },
+				enter(){
+			        alert('动画进入');
+				},
+				afterEnter(){
+			        alert('动画进入之后');
+				},
+				beforeLeave(){
+			        alert('动画离开之前');
+				},
+				leave(){
+			        alert('动画离开');
+				},
+				afterLeave(){
+			        alert('动画离开之后')
 				}
-			},
+			}
 	    })
 	</script>
 

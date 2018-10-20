@@ -1,0 +1,23 @@
+module.exports={
+    //配置入口文件
+    entry:'./main.js',
+    //配置入口文件输出的位置
+    output:{
+        path:__dirname,//项目的根目录
+        filename:'build.js'
+    },
+    //配置模块加载器
+    module:{
+        rules:[
+            {
+                test:/\.vue$/,//匹配所有以.vue结尾的文件都由vue-loader加载
+                loader:'vue-loader'
+            },
+            {
+                test:/\.js$/,//所有以.js结尾的文件都由babel-loader加载，除了node_modules的文件
+                loader:'babel-loader',
+                exclude:/node_modules/
+            }
+        ]
+    }
+};

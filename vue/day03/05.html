@@ -2,45 +2,51 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>动态组件</title>
+	<title>父子组件及组件间数据传递</title>
 	<script src="../js/vue.js"></script>
 </head>
 <body>
 	<div id="itany">
-		<button @click="flag='my-hello'">显示hello组件</button>
-		<button @click="flag='my-world'">显示world组件</button>
-
-		<div>
-			<!--使用keep-alive组件缓存非活动组件，可以保留状态，避免重新渲染，默认每次都会重新渲染-->
-			<keep-alive>
-				<component :is="flag"></component>
-			</keep-alive>
-		</div>
+		<my-hello></my-hello>
 	</div>
+	<template id="hello">
+		<div>
+			<h3>我是hello父组件</h3>
+			<h3>访问自己的数据：{{msg}}, {{name}}, {{age}}, {{user.username}}</h3>
+
+			<hr>
+			<my-world :message="msg" :name="name" :age="age" :user="user"></my-world>
+		</div>
+	</template>
+
+	<template id="world">
+		<div>
+			<h4>我是world子组件</h4>
+			<h4>访问父组件中的数据：{{message}}, {{name}}, {{age}}, {{user}}</h4>
+		</div>
+	</template>
 
 	<script>
-		var vm=new Vue({
+		var vm=new Vue({//根组件
 			el:'#itany',
-			data:{
-			    flag:'my-hello'
-			},
 			components:{
-			    'my-hello':{
-			        template:'<h3>我是hello组件:{{x}}</h3>',
-				    data(){
-			        return {
-			            x:Math.random()
-			        }
-				}
-			    },
-				'my-world':{
-			        template: '<h3>我是world组件:{{y}}</h3>',
-					data(){
+			    'my-hello':{//父组件
+			        data(){
 			            return {
-			                y:Math.random()
+			                msg:'welcome',
+				            name:'liang',
+				            age:27,
+				            user:{id:7777,username:'亮亮'}
 			            }
-					}
-				}
+			        },
+				    template:'#hello',
+				    components: {
+			            'my-world':{
+			                template: '#world',
+				            props:['message','name','age','user'],
+			            }
+				    }
+			    }
 			}
 		})
 	</script>

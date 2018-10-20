@@ -2,32 +2,47 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>动画</title>
+	<title>多元素动画</title>
 	<link rel="stylesheet" href="../css/animate.css">
 	<script src="../js/vue.js"></script>
 	<style>
 		p{
-			width: 300px;
-			height: 300px;
+			width: 100px;
+			height: 70px;
 			background-color: #5bc0de;
-			margin: 0 auto;
+			margin: 10px auto;
 		}
 	</style>
 </head>
 <body>
 	<div id="itany">
-		<button @click="flag=!flag">点我</button>
+		<input type="text" v-model="name">
 
-	<transition enter-active-class="animated fadeInLeft" leave-active-class="animated fadeOutRight">
-		<p v-show="flag">亮亮</p>
-	</transition>
+		<transition-group enter-active-class="animated fadeInLeft" leave-active-class="animated fadeOutRight">
+			<p v-for="(v,k) in arr2" :key="k" v-show="flag">
+				{{v}}
+			</p>
+		</transition-group>
 	</div>
 	<script>
 		var vm=new Vue({
 			el: '#itany',
 			data: {
-			    flag:false
+			    flag:true,
+				arr:['shishi','hehe','pipi','huanghuang','chuichui','tongtong','longlong','liangliang'],
+				name:''
 			},
+			computed:{
+			    arr2:function () {
+				    var temp=[];
+				    this.arr.forEach(val => {
+				        if(val.includes(this.name)){
+				            temp.push(val);
+				        }
+				    });
+				    return temp
+                }
+			}
 	    })
 	</script>
 

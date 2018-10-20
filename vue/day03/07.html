@@ -2,57 +2,82 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>单向数据流</title>
+	<title>非父子组件间的通信</title>
 	<script src="../js/vue.js"></script>
 </head>
 <body>
 	<div id="itany">
-		<h2>父组件: {{name}}</h2>
-		<input type="text" v-model="name">
-		<h2>父组件：{{user.age}}</h2>
-
-		<hr>
-
-		<my-hello :name.sync="name" :user="user"></my-hello>
+		<my-a></my-a>
+		<my-b></my-b>
+		<my-c></my-c>
 	</div>
 
-	<template id="hello">
+	<template id="a">
 		<div>
-			<h3>子组件: {{name}}</h3>
-			<h3>子组件：{{user.age}}</h3>
-			<button @click="change">修改数据</button>
+			<h3>A组件： {{name}}</h3>
+			<button @click="send">将数据发送给C组件</button>
+		</div>
+	</template>
+
+	<template id="b">
+		<div>
+			<h3>B组件： {{age}}</h3>
+		</div>
+	</template>
+
+	<template id="c">
+		<div>
+			<h3>C组件： {{name}}</h3>
 		</div>
 	</template>
 
 	<script>
-		var vm=new Vue({//父组件
-			el:'#itany',
-			data:{
-			    name:'liang',
-				user:{
-			        name:'lisi',
-					age:27,
-				}
-			},
-			components:{
-			    'my-hello':{//子组件
-				    template: '#hello',
-				    props:['name','user'],
-				    data(){
-				        return {
-				            username:this.name//方式1：将父组件的数据存到另一个变量中
-				        }
-				    },
-				    methods:{
-				        change(){
-				            // this.username='hua'
-					        // this.name='hua'
-					        // this.$emit('update:name','hua');//方式2：使用sync,需要显示地触发一个事件
-					        this.user.age=18;
-				        }
+		//定义一个空的Vue实例
+		var Event=new Vue();
 
-				    }
+		var A={
+		    template:'#a',
+		    data(){
+	            return {
+	                name:'liang'
+	            }
+		    },
+			methods:{
+		        send(){
+					Event.$emit('data-a',this.name);
+		        }
+			}
+		}
+
+		var B={
+	        template: '#b',
+			data(){
+	            return {
+	                age: 27
+	            }
+			}
+		}
+
+		var C={
+			template: '#c',
+			data(){
+			    return {
+					name:''
 			    }
+			},
+			mounted(){//在模板编译完成后执行
+			    Event.$on('data-a',name => {
+			        this.name=name
+			    });
+			}
+		}
+
+		var vm=new Vue({
+			el:'#itany',
+			components:{
+			    'my-a':A,
+				'my-b':B,
+				'my-c':C,
 			}
 		})
 	</script>

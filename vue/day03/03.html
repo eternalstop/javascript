@@ -2,40 +2,37 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>组件的分类</title>
+	<title>引用模板</title>
 	<script src="../js/vue.js"></script>
 </head>
 <body>
 	<div id="itany">
 		<my-hello></my-hello>
-		<my-world></my-world>
 	</div>
 
-	<script>
-		//全局组件
-		Vue.component('my-hello',{
-		    template:'<h3>hello {{name}}</h3>',
-			data:function () {//以组件形式存储数据时，必须以函数形式，函数返回一个对象
-				return {
-				    name:'huahua'
-				}
-            }
-		});
+	<template id="wbs">
+		<div>
+			<h3>{{msg}}</h3>
+			<ul>
+				<li v-for="value in arr">{{value}}</li>
+			</ul>
+		</div>
+	</template>
 
+	<script>
 		var vm=new Vue({
 			el:'#itany',
-			data:{
-				msg: 'welcome liangliang',
-			},
-			components:{//局部组件,只能在当前vue实例中使用
-			    'my-world':{
-			        template: '<h3>欢迎亮亮, 年龄 {{age}}</h3>',
+			components:{
+			    'my-hello':{
+			        name:'ali2018',//指定组件的名称，默认时标签名
+			        template:'#wbs',
 				    data(){
-			            return {
-			                age: 25,
-			            }
-				    }
-			    }
+			        return {
+			            msg: '欢迎来到永远站',
+				        arr:['shishi','hehe','pipi','huanghuang','chuichui','tongtong','longlong','liangliang']
+			        }
+				}
+			    },
 			}
 		})
 	</script>

@@ -2,82 +2,41 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>非父子组件间的通信</title>
+	<title>slot内容分发</title>
 	<script src="../js/vue.js"></script>
 </head>
 <body>
 	<div id="itany">
-		<my-a></my-a>
-		<my-b></my-b>
-		<my-c></my-c>
+		<my-hello>
+			<ul slot="str">
+				<li>aaa</li>
+				<li>bbb</li>
+				<li>ccc</li>
+			</ul>
+			<ol slot="num">
+				<li>111</li>
+				<li>222</li>
+				<li>333</li>
+			</ol>
+		</my-hello>
 	</div>
 
-	<template id="a">
+	<template id="hello">
 		<div>
-			<h3>A组件： {{name}}</h3>
-			<button @click="send">将数据发送给C组件</button>
-		</div>
-	</template>
-
-	<template id="b">
-		<div>
-			<h3>B组件： {{age}}</h3>
-		</div>
-	</template>
-
-	<template id="c">
-		<div>
-			<h3>C组件： {{name}}</h3>
+			<slot name="str"></slot>
+			<h3>welcome</h3>
+			<slot>如果没有内容显示该内容，否则显示原内容</slot>
+			<slot name="num"></slot>
 		</div>
 	</template>
 
 	<script>
-		//定义一个空的Vue实例
-		var Event=new Vue();
-
-		var A={
-		    template:'#a',
-		    data(){
-	            return {
-	                name:'liang'
-	            }
-		    },
-			methods:{
-		        send(){
-					Event.$emit('data-a',this.name);
-		        }
-			}
-		}
-
-		var B={
-	        template: '#b',
-			data(){
-	            return {
-	                age: 27
-	            }
-			}
-		}
-
-		var C={
-			template: '#c',
-			data(){
-			    return {
-					name:''
-			    }
-			},
-			mounted(){//在模板编译完成后执行
-			    Event.$on('data-a',name => {
-			        this.name=name
-			    });
-			}
-		}
-
 		var vm=new Vue({
 			el:'#itany',
 			components:{
-			    'my-a':A,
-				'my-b':B,
-				'my-c':C,
+			    'my-hello':{
+			        template:'#hello'
+			    }
 			}
 		})
 	</script>
